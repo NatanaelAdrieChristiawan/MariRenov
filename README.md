@@ -1,7 +1,5 @@
 
-  # Natahn (Copy)
-
-  This is a code bundle for Natahn (Copy). The original project is available at https://www.figma.com/design/oaiCRy2Q1EKwr5FIgiuDIf/Natahn--Copy-.
+  # Mari Renov
 
   ## Running the code
 
