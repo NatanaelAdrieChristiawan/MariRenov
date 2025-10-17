@@ -1,6 +1,11 @@
 import { Mail, Phone, MapPin, Instagram, Youtube, Facebook } from 'lucide-react';
 
-export function Footer() {
+interface FooterProps {
+  currentPage?: string;
+  onNavigate?: (page: string) => void;
+}
+
+export function Footer({ currentPage = 'home', onNavigate }: FooterProps) {
   return (
     <footer className="bg-primary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -33,36 +38,27 @@ export function Footer() {
           <div>
             <h3 className="font-['Playfair_Display'] font-semibold mb-4">Navigasi</h3>
             <ul className="space-y-2 text-sm">
-              <li>
-                <a href="#home" className="text-white/80 hover:text-accent transition-colors">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#portfolio" className="text-white/80 hover:text-accent transition-colors">
-                  Portfolio
-                </a>
-              </li>
-              <li>
-                <a href="#proses" className="text-white/80 hover:text-accent transition-colors">
-                  Proses
-                </a>
-              </li>
-              <li>
-                <a href="#testimoni" className="text-white/80 hover:text-accent transition-colors">
-                  Testimoni
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="text-white/80 hover:text-accent transition-colors">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="text-white/80 hover:text-accent transition-colors">
-                  About
-                </a>
-              </li>
+              {[
+                { id: 'home', label: 'Home' },
+                { id: 'portfolio', label: 'Portfolio' },
+                { id: 'proses', label: 'Proses' },
+                { id: 'testimoni', label: 'Testimoni' },
+                { id: 'faq', label: 'FAQ' },
+                { id: 'about', label: 'About' },
+              ].map((item) => (
+                <li key={item.id}>
+                  <button
+                    onClick={() => onNavigate?.(item.id)}
+                    className={`text-left w-full transition-colors ${
+                      currentPage === item.id
+                        ? 'text-accent'
+                        : 'text-white/80 hover:text-accent'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 

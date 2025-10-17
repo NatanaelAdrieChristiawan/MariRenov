@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { WhatsAppButton } from './components/WhatsAppButton';
@@ -11,6 +11,12 @@ import { AboutPage } from './components/AboutPage';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
+
+  // Scroll to top whenever the current page changes
+  useEffect(() => {
+    // Use smooth behavior for a better UX; change to 'auto' if you prefer instant jump
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -35,7 +41,7 @@ export default function App() {
     <div className="min-h-screen bg-background">
       <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
       <main>{renderPage()}</main>
-      <Footer />
+  <Footer currentPage={currentPage} onNavigate={setCurrentPage} />
       <WhatsAppButton />
     </div>
   );

@@ -248,7 +248,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
               <motion.div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4" variants={staggerContainer(0.12)}>
                 <motion.div className="flex flex-col items-center text-center space-y-2" variants={fadeInUp}>
                   <CheckCircle className="text-accent" size={28} />
-                  <span className="text-xs text-gray-600">Transparan Biaya</span>
+                  <span className="text-xs text-gray-600">Kepastian Biaya</span>
                 </motion.div>
                 <motion.div className="flex flex-col items-center text-center space-y-2" variants={fadeInUp}>
                   <Shield className="text-accent" size={28} />
@@ -363,7 +363,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 <FileText className="text-primary" size={32} />
               </div>
               <h4 className="font-['Playfair_Display'] text-lg text-primary">
-                Transparansi Biaya & Timeline
+                Kepastian Biaya & Timeline
               </h4>
               <p className="text-sm text-gray-600">
                 RAB detail dan jadwal jelas tanpa biaya tersembunyi

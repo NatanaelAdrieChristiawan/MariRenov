@@ -65,7 +65,7 @@ const faqData = [
   {
     question: 'Apakah ada biaya survey lokasi?',
     answer:
-      'Survey lokasi untuk area [KOTA] GRATIS untuk klien serius. Untuk area di luar kota, mungkin ada biaya transport yang akan dikonfirmasi terlebih dahulu. Biaya survey akan dikembalikan jika project jadi.',
+      'Survey lokasi BSD & Tangerang GRATIS untuk klien serius.Untuk area lain di Jabodetabek, mungkin ada biaya transport (akan dikonfirmasi terlebih dahulu).Biaya survey akan dikembalikan jika project jadi.Berbasis di BSD, melayani area sekitarnya.Area lain di Jabodetabek dapat kami layani setelah diskusi awal.Kami hanya menyediakan desain tatap muka agar proses lebih personal dan hasil maksimal.',
   },
   {
     question: 'Bagaimana jika ada masalah setelah serah terima?',
