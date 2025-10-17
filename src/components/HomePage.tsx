@@ -37,81 +37,32 @@ import {
   type CarouselApi,
 } from './ui/carousel';
 
-const portfolioItems: PortfolioItem[] = [
-  {
-    id: '1',
-    image: 'https://images.unsplash.com/photo-1638369022547-1c763b1b9b3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBsdXh1cnklMjBpbnRlcmlvcnxlbnwxfHx8fDE3NjAzMDA4MTd8MA&ixlib=rb-4.1.0&q=80&w=1080',
-    title: 'Villa Minimalis Modern',
-    type: 'Desain + Build',
-    location: 'Tangerang Selatan',
-    description:
-      'Villa minimalis modern dengan konsep open space yang memadukan estetika Jepang dan Skandinavia. Desain yang clean dengan material premium seperti marmer Carrara, kayu jati, dan kaca tempered.',
-    year: '2024',
-    duration: '8 bulan',
-    budget: 'Rp 2.5M - 3M',
-    specs: [
-      'Luas Bangunan: 300m²',
-      'Lantai: 2 lantai',
-      'Kamar Tidur: 4 + 1 maid room',
-      'Kamar Mandi: 5',
-      'Smart Home System',
-    ],
-  },
-  {
-    id: '2',
-    image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwbGl2aW5nJTIwcm9vbXxlbnwxfHx8fDE3NjAyNjAzNzR8MA&ixlib=rb-4.1.0&q=80&w=1080',
-    title: 'Ruang Tamu Contemporary',
-    type: 'Desain Interior',
-    location: 'Jakarta Selatan',
-    description:
-      'Desain ruang tamu contemporary dengan palet warna netral yang hangat. Furniture custom dari kayu walnut dengan sentuhan brass accent.',
-    year: '2023',
-    duration: '3 bulan',
-    budget: 'Rp 400M - 600M',
-    specs: [
-      'Luas Ruangan: 60m²',
-      'Custom Sofa fabric Italia',
-      'Coffee table marmer Calacatta',
-      'Built-in storage kayu walnut',
-    ],
-  },
-  {
-    id: '3',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBob3VzZSUyMGV4dGVyaW9yfGVufDF8fHx8MTc2MDI5NTUzN3ww&ixlib=rb-4.1.0&q=80&w=1080',
-    title: 'Rumah Eksterior Modern',
-    type: 'Desain Eksterior',
-    location: 'BSD City',
-    description:
-      'Fasad rumah modern dengan kombinasi material beton exposed, kayu, dan kaca. Desain box-shaped dengan void dan balkon yang menciptakan dimensi visual menarik.',
-    year: '2024',
-    duration: '5 bulan',
-    budget: 'Rp 1.8M - 2.2M',
-    specs: [
-      'Luas Tanah: 200m²',
-      'Luas Bangunan: 180m²',
-      'Carport untuk 2 mobil',
-      'Landscape dengan vertical garden',
-    ],
-  },
-  {
-    id: '4',
-    image: 'https://images.unsplash.com/photo-1625578782042-3f2ad4f42956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiZWRyb29tJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzYwMjg2Njg0fDA&ixlib=rb-4.1.0&q=80&w=1080',
-    title: 'Master Bedroom Suite',
-    type: 'Desain Interior',
-    location: 'Jakarta Pusat',
-    description:
-      'Master bedroom suite dengan konsep hotel bintang 5. Dilengkapi dengan walk-in closet, ensuite bathroom, dan private balcony.',
-    year: '2023',
-    duration: '4 bulan',
-    budget: 'Rp 500M - 700M',
-    specs: [
-      'Luas Ruangan: 45m²',
-      'Walk-in closet dengan LED strips',
-      'Ensuite bathroom dengan bathtub',
-      'Motorized curtain',
-    ],
-  },
-];
+type JsonPortfolioItem = {
+  id?: string | number;
+  title: string;
+  type?: string;
+  location?: string;
+  images: string[];
+  image?: string;
+  description?: string;
+  year?: string | number;
+  duration?: string;
+  budget?: string;
+  client?: string;
+  specs?: string[];
+};
+
+function inferTypeFromTitle(title: string): PortfolioItem['type'] {
+  const t = title.toLowerCase();
+  if (/(kitchen|bedroom|living|bath|toilet|dapur|kamar|ruang)/.test(t)) return 'Desain Interior';
+  if (/(fasad|exterior|eksterior|rumah|renovasi|renovation)/.test(t)) return 'Desain Eksterior';
+  return 'Desain Interior';
+}
+
+function generateDescription(i: { title: string; type: string; location?: string }) {
+  const loc = i.location ? ` di ${i.location}` : '';
+  return `${i.title} adalah proyek ${i.type.toLowerCase()}${loc}. Mengusung tampilan modern-minimalis dengan material berkualitas, tata ruang fungsional, dan pencahayaan yang nyaman.`;
+}
 
 const testimonials = [
   {
@@ -138,11 +89,11 @@ const testimonials = [
 ];
 
 const heroImages = [
-  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBob3VzZSUyMGV4dGVyaW9yfGVufDF8fHx8MTc2MDI5NTUzN3ww&ixlib=rb-4.1.0&q=80&w=1080',
-  'https://images.unsplash.com/photo-1706808849827-7366c098b317?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBtb2Rlcm4lMjBob3VzZSUyMGV4dGVyaW9yfGVufDF8fHx8MTc2MDM1ODUzOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-  'https://images.unsplash.com/photo-1659720879214-62bfaf383b79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb250ZW1wb3JhcnklMjBob21lJTIwYXJjaGl0ZWN0dXJlfGVufDF8fHx8MTc2MDM5Mzk4MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-  'https://images.unsplash.com/photo-1622015663381-d2e05ae91b72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB2aWxsYSUyMGRlc2lnbnxlbnwxfHx8fDE3NjA0Mjk1MDN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-  'https://images.unsplash.com/photo-1731101676275-101a32d910ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwaG91c2UlMjBmYWNhZGV8ZW58MXx8fHwxNzYwNDI5NTAzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+  '/images/carousel/carousel1.png',
+  '/images/carousel/carousel2.png',
+  '/images/carousel/carousel3.png',
+  '/images/carousel/carousel4.png',
+  '/images/carousel/carousel5.png',
 ];
 
 interface HomePageProps {
@@ -153,6 +104,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
   const [selectedPortfolio, setSelectedPortfolio] = useState<PortfolioItem | null>(null);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [items, setItems] = useState<PortfolioItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!api) {
@@ -176,6 +130,44 @@ export function HomePage({ onNavigate }: HomePageProps) {
       api.off('select', onSelect);
     };
   }, [api]);
+
+  // Load 6 portfolio items from JSON
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch('/data/portfolio.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Gagal memuat data portfolio');
+        const raw: JsonPortfolioItem[] = await res.json();
+        const normalized: PortfolioItem[] = raw.map((p, idx) => {
+          const id = String(p.id ?? idx + 1);
+          const images = (p.images ?? []).map((u) => (u.startsWith('http') ? u : `${u}`));
+          const image = p.image ?? images[0] ?? '';
+          const type = p.type ?? inferTypeFromTitle(p.title);
+          const description = p.description ?? generateDescription({ title: p.title, type, location: p.location ?? '' });
+          return {
+            id,
+            title: p.title,
+            type,
+            location: p.location ?? '',
+            images,
+            image,
+            description,
+            year: String(p.year ?? new Date().getFullYear()),
+            duration: p.duration ?? '-',
+            budget: p.budget ?? '-',
+            client: p.client ?? '-',
+            specs: p.specs ?? [],
+          };
+        });
+        setItems(normalized.slice(0, 6));
+      } catch (e: any) {
+        setError(e.message || 'Terjadi kesalahan');
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, []);
 
   const handleWhatsApp = () => {
     window.open(
@@ -223,7 +215,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   variants={fadeInUp}
                   transition={{ delay: 0.1 }}
                 >
-                  Desain & build dari konsep sampai serah terima. Transparan biaya, kualitas
+                  Desain & build dari konsep sampai serah terima. Kepastian biaya, kualitas
                   terjamin, dan dikerjakan oleh tim profesional berpengalaman 30+ tahun.
                 </motion.p>
               </div>
@@ -275,7 +267,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
             {/* Right Image - Slideshow */}
             <motion.div className="relative" variants={slideIn('right', 80)}>
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                 <Carousel
                   setApi={setApi}
                   opts={{
@@ -287,11 +279,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   <CarouselContent className="h-full">
                     {heroImages.map((image, index) => (
                       <CarouselItem key={index} className="h-full">
-                        <div className="h-full w-full">
+                        <div className="relative h-full w-full">
                           <img
                             src={image}
                             alt={`Modern House ${index + 1}`}
-                            className="w-full h-full object-cover"
+                            className="absolute inset-0 w-full h-full object-cover"
                           />
                         </div>
                       </CarouselItem>
@@ -612,7 +604,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
             whileInView="show"
             viewport={{ once: true, margin: '-40px' }}
           >
-            {portfolioItems.map((item, idx) => (
+            {(loading ? [] : items).map((item, idx) => (
               <motion.div key={item.id} variants={fadeWhileInView} custom={idx}>
                 <PortfolioCard 
                   {...item} 
@@ -620,6 +612,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 />
               </motion.div>
             ))}
+            {(!loading && items.length === 0 && !error) && (
+              <p className="text-gray-600 col-span-full">Portfolio belum tersedia.</p>
+            )}
+            {error && (
+              <p className="text-red-600 col-span-full">{error}</p>
+            )}
           </motion.div>
 
           <motion.div 

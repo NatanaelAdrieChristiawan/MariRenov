@@ -19,6 +19,11 @@ export function Navbar({ currentPage = 'home', onNavigate }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Reset scroll to top whenever the displayed page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [currentPage]);
+
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'portfolio', label: 'Portfolio' },
@@ -33,6 +38,12 @@ export function Navbar({ currentPage = 'home', onNavigate }: NavbarProps) {
       onNavigate(pageId);
     }
     setIsMobileMenuOpen(false);
+
+    // Force scroll to top immediately and again on next frame
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    });
   };
 
   return (
@@ -78,20 +89,17 @@ export function Navbar({ currentPage = 'home', onNavigate }: NavbarProps) {
             <div className="hidden md:block">
               <Button
                 className="bg-primary hover:bg-primary/90 text-white"
-                onClick={() => window.open('https://wa.me/6285285888158?text=Halo%20Mari%20Renov%2C%20saya%20mau%20konsultasi.%0ANama%3A%0ANo.%20WA%3A%0ARuang%20yang%20ingin%20saya%20renov%3A%0ALokasi%3A%0ABudget%20kira-kira%3A%0ATimeline%20yang%20diharapkan%3A%0APesan%20Tambahan%3A', '_blank')}
+                onClick={() =>
+                  window.open(
+                    'https://wa.me/6285285888158?text=Halo%20Mari%20Renov%2C%20saya%20mau%20konsultasi.%0ANama%3A%0ANo.%20WA%3A%0ARuang%20yang%20ingin%20saya%20renov%3A%0ALokasi%3A%0ABudget%20kira-kira%3A%0ATimeline%20yang%20diharapkan%3A%0APesan%20Tambahan%3A',
+                    '_blank'
+                  )
+                }
               >
                 Chat WhatsApp
               </Button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2 text-gray-700"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
+        </div>
         </div>
       </nav>
 
