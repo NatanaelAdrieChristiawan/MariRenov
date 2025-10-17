@@ -267,7 +267,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
             {/* Right Image - Slideshow */}
             <motion.div className="relative" variants={slideIn('right', 80)}>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-white">
                 <Carousel
                   setApi={setApi}
                   opts={{
@@ -283,7 +283,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                           <img
                             src={image}
                             alt={`Modern House ${index + 1}`}
-                            className="absolute inset-0 w-full h-full object-cover"
+                            className="absolute inset-0 w-full h-full object-contain"
                           />
                         </div>
                       </CarouselItem>
