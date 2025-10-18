@@ -201,8 +201,63 @@ export function HomePage({ onNavigate }: HomePageProps) {
             initial="hidden"
             animate="show"
           >
-            {/* Left Content */}
-            <motion.div className="space-y-8" variants={fadeInUp}>
+            {/* Left Image - Slideshow */}
+            <motion.div className="relative order-2 lg:order-1" variants={slideIn('left', 80)}>
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-white">
+                <Carousel
+                  setApi={setApi}
+                  opts={{
+                    align: 'center',
+                    loop: true,
+                    dragFree: false,
+                  }}
+                  className="w-full h-full"
+                >
+                  <CarouselContent className="h-full -ml-0">
+                    {heroImages.map((image, index) => (
+                      <CarouselItem key={index} className="h-full pl-0">
+                        <div className="relative h-full w-full flex items-center justify-center">
+                          <img
+                            src={image}
+                            alt={`Modern House ${index + 1}`}
+                            className="w-full h-full object-cover"
+                            loading="eager"
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
+                {/* Navigation Dots */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+                  {heroImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => api?.scrollTo(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        current === index
+                          ? 'bg-white w-6'
+                          : 'bg-white/50 hover:bg-white/75'
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+              {/* Floating card */}
+              <motion.div 
+                className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-xl hidden lg:block z-10"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.5 }}
+              >
+                <p className="text-sm text-gray-600 mb-1">Pengalaman</p>
+                <p className="font-['Playfair_Display'] text-2xl text-primary">30+ Tahun</p>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Content */}
+            <motion.div className="space-y-8 order-1 lg:order-2" variants={fadeInUp}>
               <div className="space-y-4">
                 <motion.h1
                   className="font-['Playfair_Display'] text-4xl sm:text-5xl lg:text-6xl text-primary leading-tight"
@@ -262,59 +317,6 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   <Clock className="text-accent" size={28} />
                   <span className="text-xs text-gray-600">On-Time</span>
                 </motion.div>
-              </motion.div>
-            </motion.div>
-
-            {/* Right Image - Slideshow */}
-            <motion.div className="relative" variants={slideIn('right', 80)}>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-white">
-                <Carousel
-                  setApi={setApi}
-                  opts={{
-                    align: 'start',
-                    loop: true,
-                  }}
-                  className="w-full h-full"
-                >
-                  <CarouselContent className="h-full">
-                    {heroImages.map((image, index) => (
-                      <CarouselItem key={index} className="h-full">
-                        <div className="relative h-full w-full">
-                          <img
-                            src={image}
-                            alt={`Modern House ${index + 1}`}
-                            className="absolute inset-0 w-full h-full object-contain"
-                          />
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
-                {/* Navigation Dots */}
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-                  {heroImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => api?.scrollTo(index)}
-                      className={`w-2 h-2 rounded-full transition-all ${
-                        current === index
-                          ? 'bg-white w-6'
-                          : 'bg-white/50 hover:bg-white/75'
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Floating card */}
-              <motion.div 
-                className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-xl hidden lg:block z-10"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-              >
-                <p className="text-sm text-gray-600 mb-1">Pengalaman</p>
-                <p className="font-['Playfair_Display'] text-2xl text-primary">30+ Tahun</p>
               </motion.div>
             </motion.div>
           </motion.div>
