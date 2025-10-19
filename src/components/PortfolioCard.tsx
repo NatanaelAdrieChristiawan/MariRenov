@@ -16,10 +16,18 @@ export function PortfolioCard({ image, title, type, location, onClick }: Portfol
       onClick={onClick}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
+        {/* Background fill to prevent white bars */}
+        <ImageWithFallback
+          src={image}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
+        />
+        {/* Foreground full image without crop */}
         <ImageWithFallback
           src={image}
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="absolute inset-0 w-full h-full object-contain"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
@@ -30,7 +38,7 @@ export function PortfolioCard({ image, title, type, location, onClick }: Portfol
           </div>
         </div>
       </div>
-      <div className="p-5">
+  <div className="p-5">
         <h4 className="font-['Playfair_Display'] text-lg mb-1.5 text-primary">
           {title}
         </h4>

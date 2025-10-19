@@ -5,7 +5,7 @@ import { CheckCircle } from 'lucide-react';
 export function ProsesPage() {
   const handleWhatsApp = () => {
     window.open(
-      'https://wa.me/6285285888158?text=Halo%20Mari%20Renov%2C%20saya%20mau%20konsultasi.%0ANama%3A%0ANo.%20WA%3A%0ARuang%20yang%20ingin%20saya%20renov%3A%0ALokasi%3A%0ABudget%20kira-kira%3A%0ATimeline%20yang%20diharapkan%3A%0APesan%20Tambahan%3A',
+      'https://wa.me/6285285888158?text=Halo%20Mari%20Renov%2C%20saya%20mau%20konsultasi.%0ANama%3A%0ARuang%20yang%20akan%20di-renov%3A%0AAlamat%20Rumah%3A%0ABudget%20kira-kira%3A',
       '_blank'
     );
   };

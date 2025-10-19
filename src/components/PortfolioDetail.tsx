@@ -27,7 +27,7 @@ export function PortfolioDetail({ portfolio, onClose }: PortfolioDetailProps) {
 
   const handleWhatsApp = () => {
     window.open(
-      `https://wa.me/6285285888158?text=Halo%20Mari%20Renov%2C%20saya%20mau%20konsultasi.%0ANama%3A%0ANo.%20WA%3A%0ARuang%20yang%20ingin%20saya%20renov%3A%0ALokasi%3A%0ABudget%20kira-kira%3A%0ATimeline%20yang%20diharapkan%3A%0APesan%20Tambahan%3A`,
+      `https://wa.me/6285285888158?text=Halo%20Mari%20Renov%2C%20saya%20mau%20konsultasi.%0ANama%3A%0ARuang%20yang%20akan%20di-renov%3A%0AAlamat%20Rumah%3A%0ABudget%20kira-kira%3A`,
       '_blank'
     );
   };
@@ -59,14 +59,20 @@ export function PortfolioDetail({ portfolio, onClose }: PortfolioDetailProps) {
           {allImages.map((img, index) => (
             <div
               key={index}
-              className={`${
-                index === 0 ? 'md:col-span-2' : ''
-              } aspect-video overflow-hidden rounded-lg`}
+              className={`${index === 0 ? 'md:col-span-2' : ''} aspect-video overflow-hidden rounded-lg relative`}
             >
+              {/* Background fill */}
+              <ImageWithFallback
+                src={img}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
+              />
+              {/* Foreground full image */}
               <ImageWithFallback
                 src={img}
                 alt={`${portfolio.title} - ${index + 1}`}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="absolute inset-0 w-full h-full object-contain"
               />
             </div>
           ))}
