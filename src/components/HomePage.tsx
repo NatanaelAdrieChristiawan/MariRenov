@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer, fadeWhileInView, slideIn } from '../animations/motionVariants';
 import { Button } from './ui/button';
 import { ServiceCard } from './ServiceCard';
+import { ImageWithFallback } from './figma/ImageWithFallback';
 import { PortfolioCard } from './PortfolioCard';
 import { PortfolioDetail, PortfolioItem } from './PortfolioDetail';
 import { TestimonialCard } from './TestimonialCard';
@@ -222,7 +223,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                       <CarouselItem key={index} className="h-full pl-0">
                         <div className="flex items-center justify-center h-full w-full bg-white">
                           {/* Tampilkan gambar dengan aspect ratio 4:3 */}
-                          <img
+                          <ImageWithFallback
                             src={image}
                             alt={`Modern House ${index + 1}`}
                             className="w-full h-full object-cover"
