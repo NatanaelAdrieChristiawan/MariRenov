@@ -89,11 +89,12 @@ const testimonials = [
 ];
 
 const heroImages = [
-  '/images/carousel/carousel1.png',
-  '/images/carousel/carousel2.png',
-  '/images/carousel/carousel3.png',
-  '/images/carousel/carousel4.png',
-  '/images/carousel/carousel5.png',
+  '/images/carousel/1.png',
+  '/images/carousel/2.png',
+  '/images/carousel/3.png',
+  '/images/carousel/4.png',
+  '/images/carousel/5.png',
+  '/images/carousel/6.png',
 ];
 
 interface HomePageProps {
@@ -107,7 +108,6 @@ export function HomePage({ onNavigate }: HomePageProps) {
   const [items, setItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isZoomed, setIsZoomed] = useState(false);
 
   useEffect(() => {
     if (!api) {
@@ -189,10 +189,6 @@ export function HomePage({ onNavigate }: HomePageProps) {
     setSelectedPortfolio(null);
   };
 
-  const toggleZoom = () => {
-    setIsZoomed(!isZoomed);
-  };
-
   return (
     <>
       <PortfolioDetail portfolio={selectedPortfolio} onClose={handleCloseDetail} />
@@ -225,16 +221,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
                     {heroImages.map((image, index) => (
                       <CarouselItem key={index} className="h-full pl-0">
                         <div className="flex items-center justify-center h-full w-full bg-white">
-                          {/* Tampilkan gambar dengan fitur zoom in/out */}
+                          {/* Tampilkan gambar dengan aspect ratio 4:3 */}
                           <img
                             src={image}
                             alt={`Modern House ${index + 1}`}
-                            className={`max-h-full max-w-full transition-all duration-300 cursor-pointer ${
-                              isZoomed ? 'object-cover w-full h-full' : 'object-contain'
-                            }`}
-                            onClick={toggleZoom}
+                            className="w-full h-full object-cover"
                             loading={index === 0 ? 'eager' : 'lazy'}
-                            title={isZoomed ? 'Klik untuk zoom out' : 'Klik untuk zoom in'}
                           />
                         </div>
                       </CarouselItem>
