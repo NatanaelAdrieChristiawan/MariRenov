@@ -67,12 +67,14 @@ export function PortfolioDetail({ portfolio, onClose }: PortfolioDetailProps) {
                 alt=""
                 aria-hidden="true"
                 className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
+                sizes={index === 0 ? '(min-width: 768px) 100vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
               />
               {/* Foreground full image */}
               <ImageWithFallback
                 src={img}
                 alt={`${portfolio.title} - ${index + 1}`}
                 className="absolute inset-0 w-full h-full object-contain"
+                sizes={index === 0 ? '(min-width: 768px) 100vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
               />
             </div>
           ))}

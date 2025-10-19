@@ -55,8 +55,9 @@
             "vite": "6.3.5"
       },
       "scripts": {
-                  "dev": "vite",
-                  "build": "vite build",
-                  "generate:portfolio": "node scripts/generatePortfolioJson.js"
+                                                            "dev": "vite",
+                                                            "build": "vite build",
+                                                            "generate:portfolio": "node scripts/generatePortfolioJson.js",
+                                                            "optimize:images": "node scripts/optimize-images.js"
       }
 }

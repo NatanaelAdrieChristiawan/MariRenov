@@ -227,6 +227,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
                             alt={`Modern House ${index + 1}`}
                             className="w-full h-full object-cover"
                             loading={index === 0 ? 'eager' : 'lazy'}
+                            decoding={index === 0 ? 'sync' : 'async'}
+                            fetchPriority={index === 0 ? 'high' : 'auto'}
+                            sizes="100vw"
                           />
                         </div>
                       </CarouselItem>
@@ -463,6 +466,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 src="https://images.unsplash.com/photo-1682888813795-192fca4a10d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBraXRjaGVuJTIwZGVzaWdufGVufDF8fHx8MTc2MDMzNjU1Mnww&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Kitchen"
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
           </div>

@@ -11,6 +11,10 @@
       <link rel="apple-touch-icon" href="/images/MR.png" />
       <meta name="theme-color" content="#dc2626" />
 
+  <!-- Performance: preconnect and preload for critical images -->
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="preload" as="image" href="/images/carousel/1.png" imagesrcset="/images/carousel/1.png 1x" imagesizes="100vw" fetchpriority="high" />
+
       <!-- Open Graph / Facebook -->
       <meta property="og:type" content="website" />
       <meta property="og:title" content="Mari Renov" />

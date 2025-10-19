@@ -17,6 +17,7 @@ export function TeamCard({ name, role, description, image, linkedIn }: TeamCardP
           src={image}
           alt={name}
           className="w-full h-full object-cover"
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw"
         />
       </div>
       <div className="p-6">
