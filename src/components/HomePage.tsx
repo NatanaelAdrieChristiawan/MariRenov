@@ -107,6 +107,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
   const [items, setItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   useEffect(() => {
     if (!api) {
@@ -188,6 +189,10 @@ export function HomePage({ onNavigate }: HomePageProps) {
     setSelectedPortfolio(null);
   };
 
+  const toggleZoom = () => {
+    setIsZoomed(!isZoomed);
+  };
+
   return (
     <>
       <PortfolioDetail portfolio={selectedPortfolio} onClose={handleCloseDetail} />
@@ -203,7 +208,10 @@ export function HomePage({ onNavigate }: HomePageProps) {
           >
             {/* Left Image - Slideshow */}
             <motion.div className="relative order-2 lg:order-1" variants={slideIn('left', 80)}>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-white">
+              <div
+                className="relative rounded-2xl overflow-hidden shadow-2xl bg-white"
+                style={{ height: '60vh', maxHeight: 720, minHeight: 360 }}
+              >
                 <Carousel
                   setApi={setApi}
                   opts={{
@@ -216,20 +224,17 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   <CarouselContent className="h-full -ml-0">
                     {heroImages.map((image, index) => (
                       <CarouselItem key={index} className="h-full pl-0">
-                        <div className="relative h-full w-full">
-                          {/* Background fill to avoid white space */}
-                          <img
-                            src={image}
-                            alt=""
-                            aria-hidden="true"
-                            className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
-                          />
-                          {/* Foreground image shown fully without crop */}
+                        <div className="flex items-center justify-center h-full w-full bg-white">
+                          {/* Tampilkan gambar dengan fitur zoom in/out */}
                           <img
                             src={image}
                             alt={`Modern House ${index + 1}`}
-                            className="absolute inset-0 w-full h-full object-contain"
+                            className={`max-h-full max-w-full transition-all duration-300 cursor-pointer ${
+                              isZoomed ? 'object-cover w-full h-full' : 'object-contain'
+                            }`}
+                            onClick={toggleZoom}
                             loading={index === 0 ? 'eager' : 'lazy'}
+                            title={isZoomed ? 'Klik untuk zoom out' : 'Klik untuk zoom in'}
                           />
                         </div>
                       </CarouselItem>
