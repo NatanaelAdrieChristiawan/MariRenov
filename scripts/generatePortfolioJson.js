@@ -10,7 +10,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = process.cwd();
-const PORTFOLIO_DIR = path.join(ROOT, 'public', 'portfolio');
+// Source folders for portfolio images (renamed to 'porfolionew' per latest content)
+const PORTFOLIO_DIR = path.join(ROOT, 'public', 'porfolionew');
 const OUTPUT_DIR = path.join(ROOT, 'public', 'data');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'portfolio.json');
 
@@ -80,7 +81,8 @@ function readImages(dir, folderName) {
 
   // Sort selected deterministically for consistent UI ordering
   selected.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-  return selected.map((f) => encodeURI(`/portfolio/${folderName}/${f}`));
+  // Build public URLs (base path is /porfolionew)
+  return selected.map((f) => encodeURI(`/porfolionew/${folderName}/${f}`));
 }
 
 function main() {

@@ -58,6 +58,7 @@
             "dev": "vite",
             "build": "vite build",
             "generate:portfolio": "node scripts/generatePortfolioJson.js",
-            "clean:portfolio": "node scripts/clean-large-variants.js"
+            "clean:portfolio": "node scripts/clean-large-variants.js",
+            "clean:images": "node scripts/clean-images-formats.js"
       }
 }

@@ -90,12 +90,15 @@ const testimonials = [
 ];
 
 const heroImages = [
-  '/images/carousel/1.png',
-  '/images/carousel/2.png',
-  '/images/carousel/3.png',
-  '/images/carousel/4.png',
-  '/images/carousel/5.png',
-  '/images/carousel/6.png',
+  '/images/carousel/1.avif',
+  '/images/carousel/2.avif',
+  '/images/carousel/3.avif',
+  '/images/carousel/4.avif',
+  '/images/carousel/5.avif',
+  '/images/carousel/6.avif',
+  '/images/carousel/7.avif',
+  '/images/carousel/8.avif',
+  '/images/carousel/9.avif',
 ];
 
 interface HomePageProps {
