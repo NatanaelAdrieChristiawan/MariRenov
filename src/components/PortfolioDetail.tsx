@@ -68,6 +68,7 @@ export function PortfolioDetail({ portfolio, onClose }: PortfolioDetailProps) {
                 aria-hidden="true"
                 className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
                 sizes={index === 0 ? '(min-width: 768px) 100vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
+                srcSetWidths={[480, 768, 1080]}
               />
               {/* Foreground full image */}
               <ImageWithFallback
@@ -75,6 +76,7 @@ export function PortfolioDetail({ portfolio, onClose }: PortfolioDetailProps) {
                 alt={`${portfolio.title} - ${index + 1}`}
                 className="absolute inset-0 w-full h-full object-contain"
                 sizes={index === 0 ? '(min-width: 768px) 100vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
+                srcSetWidths={[480, 768, 1080]}
               />
             </div>
           ))}

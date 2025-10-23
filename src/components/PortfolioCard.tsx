@@ -23,6 +23,7 @@ export function PortfolioCard({ image, title, type, location, onClick }: Portfol
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          srcSetWidths={[480, 768, 1080]}
         />
         {/* Foreground full image without crop */}
         <ImageWithFallback
@@ -30,6 +31,7 @@ export function PortfolioCard({ image, title, type, location, onClick }: Portfol
           alt={title}
           className="absolute inset-0 w-full h-full object-contain"
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          srcSetWidths={[480, 768, 1080]}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
