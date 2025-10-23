@@ -14,7 +14,7 @@ const PORTFOLIO_DIR = path.join(ROOT, 'public', 'portfolio');
 const OUTPUT_DIR = path.join(ROOT, 'public', 'data');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'portfolio.json');
 
-const IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp']);
+const IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif']);
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -52,7 +52,35 @@ function readImages(dir, folderName) {
     .filter((e) => e.isFile() && IMAGE_EXTS.has(path.extname(e.name).toLowerCase()))
     .map((e) => e.name)
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-  return files.map((f) => encodeURI(`/portfolio/${folderName}/${f}`));
+
+  // Group by base name (strip trailing -<width> if present), then pick the smallest width variant if any
+  const groups = new Map();
+  for (const name of files) {
+    const ext = path.extname(name);
+    const base = name.slice(0, -ext.length);
+    const m = base.match(/^(.*?)-(\d{2,4})$/); // e.g. "foo bar-480"
+    const key = m ? m[1] : base;
+    const width = m ? parseInt(m[2], 10) : null;
+    const arr = groups.get(key) || [];
+    arr.push({ name, width });
+    groups.set(key, arr);
+  }
+
+  const selected = [];
+  for (const arr of groups.values()) {
+    const withWidth = arr.filter((x) => typeof x.width === 'number');
+    if (withWidth.length) {
+      withWidth.sort((a, b) => a.width - b.width);
+      selected.push(withWidth[0].name);
+    } else {
+      // No width-suffixed variant; keep the first (already sorted overall)
+      selected.push(arr[0].name);
+    }
+  }
+
+  // Sort selected deterministically for consistent UI ordering
+  selected.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+  return selected.map((f) => encodeURI(`/portfolio/${folderName}/${f}`));
 }
 
 function main() {
